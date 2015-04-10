@@ -1,8 +1,9 @@
-[tasks.common]
+[tasks.default]
   deps = [
     "git",
     "zsh",
     "tmux",
+    "emacs",
   ]
 
 [tasks.git]
@@ -19,4 +20,11 @@
 [tasks.tmux]
   links = [
     [".tmux.conf"]
+  ]
+
+[tasks.emacs]
+  links = [
+    [".emacs"],
+    [".emacs.d/Cask"],
+    [".emacs.d/custom/"],
   ]
