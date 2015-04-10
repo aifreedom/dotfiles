@@ -1,0 +1,22 @@
+[tasks.common]
+  deps = [
+    "git",
+    "zsh",
+    "tmux",
+  ]
+
+[tasks.git]
+  links = [
+    [".gitconfig"]
+  ]
+
+[tasks.zsh]
+  links = [
+    [".zshrc"],
+    [".oh-my-zsh-custom"],
+  ]
+
+[tasks.tmux]
+  links = [
+    [".tmux.conf"]
+  ]

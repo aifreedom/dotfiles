@@ -1,0 +1,10 @@
+[user]
+        name = Song Xie
+        email = me@xiesong.me
+[alias]
+	co = checkout
+	st = status
+[core]
+	editor = vi
+[push]
+	default = current
