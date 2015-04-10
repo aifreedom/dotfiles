@@ -1,6 +1,7 @@
 (require 'cask "/usr/local/Cellar/cask/0.7.2/cask.el")
 (cask-initialize)
 (require 'pallet)
+(pallet-mode t)
 
 (let ((default-directory "~/.emacs.d/site-lisp/"))
   (normal-top-level-add-to-load-path '("."))
@@ -193,6 +194,7 @@ that was stored with ska-point-to-register."
 (put 'narrow-to-page 'disabled nil)
 
 (require 'magit)
+(setq magit-last-seen-setup-instructions "1.4.0")
 
 ;; (server-start)
 ;; (add-hook 'after-init-hook 'server-start)
