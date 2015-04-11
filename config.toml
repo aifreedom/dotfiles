@@ -8,7 +8,8 @@
 
 [tasks.git]
   links = [
-    [".gitconfig"]
+    [".gitconfig"],
+    [".gitignore_global"],
   ]
 
 [tasks.zsh]
