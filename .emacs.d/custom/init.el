@@ -353,7 +353,7 @@ that was stored with ska-point-to-register."
 (global-auto-revert-mode 1)
 
 (require 'whitespace)
-(setq-default whitespace-line-column 100) ;; limit line length
+(setq-default whitespace-line-column 80) ;; limit line length
 (setq-default whitespace-style '(face lines-tail tailing))
 
 (setq-default show-trailing-whitespace t)
