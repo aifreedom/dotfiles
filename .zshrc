@@ -27,7 +27,7 @@ ZSH_THEME="aifreedom"
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-plugins=(brew git python encode64 dircycle rails ruby vagrant rbenv)
+plugins=(brew git python encode64 dircycle rails ruby vagrant rbenv gem)
 
 source $ZSH/oh-my-zsh.sh
 
