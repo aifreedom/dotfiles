@@ -313,8 +313,6 @@ that was stored with ska-point-to-register."
 
 (global-auto-revert-mode t)
 
-(set-fill-column 100)
-
 ;; ;; Highlight-current-line
 ;; (add-to-list 'load-path "~sxie/.emacs.d/highlight-current-line")
 ;; (require 'highlight-current-line)
@@ -349,7 +347,7 @@ that was stored with ska-point-to-register."
 
 (my-keys-minor-mode 1)
 
-(setq-default fill-column 100)
+(setq-default fill-column 80)
 (global-auto-revert-mode 1)
 
 (require 'whitespace)

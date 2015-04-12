@@ -1,4 +1,8 @@
-(setq enh-ruby-program "~/.rbenv/versions/1.9.3-p327/bin/ruby")
+; Set rbenv first to ensure right ruby version is used
+(setq rbenv-installation-dir "/usr/local/opt/rbenv/")
+(require 'rbenv)
+(global-rbenv-mode)
+
 (autoload 'enh-ruby-mode "enh-ruby-mode" "Major mode for ruby files" t)
 (add-to-list 'auto-mode-alist '("\\.rb$" . enh-ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.rake$" . enh-ruby-mode))
@@ -51,6 +55,7 @@ of FILE in the current directory, suitable for creation"
 	    (local-set-key (kbd "C-c k") 'rspec-compile-file)
 	    ))
 
-(setq rbenv-installation-dir "/usr/local/")
-(require 'rbenv)
-(global-rbenv-mode)
+(defadvice inf-ruby-console-auto (before activate-rvm-for-robe activate)
+  (rbenv-use-corresponding))
+(add-hook 'enh-ruby-mode-hook 'robe-mode)
+(add-hook 'robe-mode-hook 'ac-robe-setup)
