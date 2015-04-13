@@ -3,6 +3,7 @@
     "git",
     "zsh",
     "tmux",
+    "ruby",
     "emacs",
   ]
 
@@ -21,6 +22,11 @@
 [tasks.tmux]
   links = [
     [".tmux.conf"]
+  ]
+
+[tasks.ruby]
+  links = [
+    [".irbrc"]
   ]
 
 [tasks.emacs]
