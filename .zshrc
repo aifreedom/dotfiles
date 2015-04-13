@@ -62,6 +62,7 @@ alias st='git status'
 alias br='git branch'
 alias cont='git rebase --continue'
 alias del='git branch -D'
+alias cleanup='sw master && git branch --merged master | grep -v "\* master" | xargs -n 1 git branch -d'
 
 ## Phabricator
 alias ad='arc diff'
