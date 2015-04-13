@@ -57,5 +57,8 @@ of FILE in the current directory, suitable for creation"
 
 (defadvice inf-ruby-console-auto (before activate-rvm-for-robe activate)
   (rbenv-use-corresponding))
+
+;; Robe
 (add-hook 'enh-ruby-mode-hook 'robe-mode)
-(add-hook 'robe-mode-hook 'ac-robe-setup)
+(eval-after-load 'company
+  '(push 'company-robe company-backends))

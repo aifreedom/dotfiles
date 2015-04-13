@@ -3,18 +3,16 @@
 (require 'pallet)
 (pallet-mode t)
 
-(let ((default-directory "~/.emacs.d/site-lisp/"))
-  (normal-top-level-add-to-load-path '("."))
-  (normal-top-level-add-subdirs-to-load-path))
-
+(require 'powerline)
 (require 'moe-theme)
 (moe-dark)
+(powerline-moe-theme)
 
 ; (desktop-save-mode 1)
 
 (setq inhibit-startup-message t)
 (tool-bar-mode -1)
-;; (toggle-frame-fullscreen)
+(add-hook 'window-setup-hook 'toggle-frame-maximized t)
 
 ;; Determine where we are
 (defvar on_darwin
@@ -94,8 +92,6 @@ that was stored with ska-point-to-register."
   (let ((tmp (point-marker)))
     (jump-to-register 8)
     (set-register 8 tmp)))
-
-
 
 ;; 25keybindings.el
 ;; Costomized key bindings
@@ -196,72 +192,11 @@ that was stored with ska-point-to-register."
 (require 'magit)
 (setq magit-last-seen-setup-instructions "1.4.0")
 
-;; (server-start)
-;; (add-hook 'after-init-hook 'server-start)
-;; (add-hook 'server-done-hook
-;;           (lambda ()
-;;             (shell-command
-;;              "screen -r -X select `cat ~sxie/tmp/emacsclient-caller`")))
-
-;; ;; ERC
-;; (require 'tls)
-;; (require 'erc)
-;; (require 'erc-ring)
-;; (require 'erc-services)
-;; (require 'erc-fill)
-;; ;; (require 'erc-autoaway)
-;; (require 'erc-log)
-
-;; ;; Logging
-;; (setq erc-log-channels t
-;;       erc-log-channels-directory "~sxie/logs/erc"
-;;       erc-log-insert-log-on-open nil
-;;       erc-log-write-after-send t
-;;       erc-log-write-after-insert t
-;;       erc-log-file-coding-system 'utf-8)
-;; (erc-log-enable)
-;; (erc-ring-enable)
-;; (setq erc-save-buffer-on-part t)
-;; (defadvice save-buffers-kill-emacs
-;;   (before save-logs (arg) activate)
-;;   (save-some-buffers t (lambda () (when (eq major-mode 'erc-mode) t))))
-
-;; ;; Channel specific prompt
-;; (setq erc-prompt (lambda ()
-;;                    (if (and (boundp 'erc-default-recipients)
-;;                             (erc-default-target))
-;;                        (erc-propertize (concat (erc-default-target) ">")
-;;                                        'read-only t
-;;                                        'rear-nonsticky t
-;;                                        'front-nonsticky t)
-;;                      (erc-propertize (concat "ERC>")
-;;                                      'read-only t
-;;                                      'rear-nonsticky t
-;;                                      'front-nonsticky t))))
-
-;; ;; Automatically truncate buffer
-;; (defvar erc-insert-post-hook)
-;; (add-hook 'erc-insert-post-hook
-;;           'erc-truncate-buffer)
-;; (setq erc-truncate-buffer-on-save t)
-
-;; ;; Spell check
-;; (erc-spelling-mode 1)
-
-;; (defun start-irc ()
-;;   "Connect to IRC."
-;;   (interactive)
-;;   (erc-tls :server "irc.tfbnw.net" :port 6443
-;;            :nick "sxie" :full-name "Song Xie")
-;;   (setq erc-autojoin-channels-alist '(("tfbnw.net" "#bootcamp"))))
-;; (start-irc)
-
-(require 'maxframe)
-(add-hook 'window-setup-hook 'maximize-frame t)
+(setq-default fill-column 80)
 
 ;; smart split
 (defun smart-split ()
-  "Split the frame into exactly as many 80-column sub-windows as
+  "Split the frame into exactly as many (fill-column)-column sub-windows as
    possible."
   (interactive)
   (defun ordered-window-list ()
@@ -269,7 +204,7 @@ that was stored with ska-point-to-register."
 	 the one at the top left."
     (window-list (selected-frame) (quote no-minibuf) (frame-first-window)))
   (defun resize-windows-destructively (windows)
-    "Resize each window in the list to be 80 characters wide. If
+    "Resize each window in the list to be (fill-column) characters wide. If
 	 there is not enough space to do that, delete the appropriate
 	 window until there is space."
     (when windows
@@ -277,7 +212,7 @@ that was stored with ska-point-to-register."
 	  (progn
 	    (adjust-window-trailing-edge
 	     (first windows)
-	     (- 80 (window-width (first windows))) t)
+             (- fill-column (window-width (first windows))) t)
 	    (resize-windows-destructively (cdr windows)))
 	(error
 	 (if (cdr windows)
@@ -288,10 +223,10 @@ that was stored with ska-point-to-register."
 	   (ignore-errors
 	     (delete-window (car windows))))))))
   (defun subsplit (w)
-    "If the given window can be split into multiple 80-column
-	 windows, do it."
-    (when (> (window-width w) (* 2 81))
-      (let ((w2 (split-window w 82 t)))
+    "If the given window can be split into multiple (fill-column)-column
+         windows, do it."
+    (when (> (window-width w) (* 2 (+ fill-column 1)))
+      (let ((w2 (split-window w (+ fill-column 2) t)))
 	(save-excursion
 	  (select-window w2)
 	  (switch-to-buffer (other-buffer (window-buffer w))))
@@ -347,7 +282,6 @@ that was stored with ska-point-to-register."
 
 (my-keys-minor-mode 1)
 
-(setq-default fill-column 80)
 (global-auto-revert-mode 1)
 
 (require 'whitespace)
@@ -383,27 +317,22 @@ that was stored with ska-point-to-register."
 
 (set-fontset-font t 'han (font-spec :name "Songti SC"))
 
-;; auto-complete
-(require 'auto-complete-config)
-(add-to-list 'ac-dictionary-directories
-	     "~/.emacsb.d/.cask/24.3.1/elpa/auto-complete-20140605.1908/dict")
-(ac-config-default)
-(setq ac-ignore-case nil)
-(add-to-list 'ac-modes 'enh-ruby-mode)
-(add-to-list 'ac-modes 'web-mode)
+(require 'yasnippet)
+(yas-global-mode 1)
+
+(require 'company)
+(add-hook 'after-init-hook 'global-company-mode)
+(global-set-key (kbd "M-/") 'company-complete)
 
 ;; flyspell
 (require 'flyspell)
 (setq flyspell-issue-message-flg nil)
 (add-hook 'prog-mode-hook 'flyspell-prog-mode)
 
-;; flyspell mode breaks auto-complete mode without this.
-(ac-flyspell-workaround)
-
 ;; Projectile
 (require 'grizzl)
 (projectile-global-mode)
-;; (setq projectile-enable-caching t)
+(setq projectile-enable-caching t)
 (setq projectile-completion-system 'grizzl)
 ;; Press Command-p for fuzzy find in project
 (global-set-key (kbd "C-c C-p") 'projectile-find-file)
@@ -429,10 +358,6 @@ that was stored with ska-point-to-register."
 (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
-
-;; powerline
-;; (require 'powerline)
-;; (powerline-default-theme)
 
 ;; highlight-indentation
 (require 'highlight-indentation)
@@ -501,4 +426,10 @@ that was stored with ska-point-to-register."
 
 (setq toml-indent-level 2)
 
-(load "01ruby.el")
+;; Load other files
+(defun load-local (filename)
+  (load (expand-file-name
+         (concat "custom/" filename ".el")
+         user-emacs-directory)))
+
+(load-local "01ruby")
