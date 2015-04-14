@@ -353,26 +353,13 @@ that was stored with ska-point-to-register."
 (global-auto-revert-mode 1)
 
 (require 'whitespace)
-(setq-default whitespace-line-column 80) ;; limit line length
+(setq-default whitespace-line-column fill-column) ;; limit line length
 (setq-default whitespace-style '(face lines-tail tailing))
-
 (setq-default show-trailing-whitespace t)
-
 (add-hook 'prog-mode-hook 'whitespace-mode)
-(add-hook 'before-save-hook 'whitespace-cleanup)
 
-(require 'ws-trim)
-
-(global-ws-trim-mode t)
-(set-default 'ws-trim-level 1)
-(setq ws-trim-global-modes '(guess (not message-mode eshell-mode)))
-(add-hook 'ws-trim-method-hook 'joc-no-tabs-in-java-hook)
-
-(defun joc-no-tabs-in-java-hook ()
-  "WS-TRIM Hook to strip all tabs in Java mode only"
-  (interactive)
-  (if (string= major-mode "jde-mode")
-      (ws-trim-tabs)))
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+(setq require-final-newline t)
 
 (require 'php-mode)
 

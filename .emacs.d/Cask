@@ -45,6 +45,5 @@
 (depends-on "toml")
 (depends-on "toml-mode")
 (depends-on "web-mode")
-(depends-on "ws-trim")
 (depends-on "yaml-mode")
 (depends-on "yasnippet")
