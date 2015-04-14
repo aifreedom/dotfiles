@@ -83,6 +83,7 @@
                                     (powerline-width rhs))
                     (powerline-render rhs))))))
 
+(setq ns-use-srgb-colorspace ni)
 ; (desktop-save-mode 1)
 
 (setq inhibit-startup-message t)
@@ -245,7 +246,6 @@ that was stored with ska-point-to-register."
       scroll-conservatively 10000)
 (show-paren-mode t)
 (setq show-paren-style 'parentheses)
-(which-function-mode)
 
 (setq line-number-mode t)
 (setq column-number-mode t)
