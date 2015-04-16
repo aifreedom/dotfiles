@@ -83,7 +83,7 @@
                                     (powerline-width rhs))
                     (powerline-render rhs))))))
 
-(setq ns-use-srgb-colorspace ni)
+(setq ns-use-srgb-colorspace nil)
 ; (desktop-save-mode 1)
 
 (setq inhibit-startup-message t)
@@ -128,7 +128,7 @@
   (interactive "p")
   (cond ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
 	((looking-at "\\s\)") (forward-char 1) (backward-list 1))
-	(t (self-insert-command (or arg 1))))) ;;À¨ºÅÆ¥Åä
+	(t (self-insert-command (or arg 1)))))
 (global-set-key "%" 'match-paren)
 
 (defun wy-go-to-char (n char)
@@ -175,24 +175,16 @@ that was stored with ska-point-to-register."
 (global-set-key "\C-x\C-k" 'kill-region)
 
 (global-set-key "\r" 'newline-and-indent)
-(global-set-key (kbd "C-\\") (quote shell))
-
-(global-set-key (kbd "C-c g") 'gnus)
 
 (global-set-key (kbd "M-`") 'other-window) ; prefer this to C-x o
 (global-set-key (kbd "M-~") '(lambda () (interactive) (other-window -1)))
-(global-set-key (kbd "C-x /") 'comment-or-uncomment-region) ; smart enough to toggle between commenting and uncommenting
-
+(global-set-key (kbd "C-x /") 'comment-or-uncomment-region)
 
 ;; 25modes.el
 
 ;; go to last edit location (super useful)
 (require 'goto-last-change)
 (global-set-key (kbd "C-c C-q") 'goto-last-change)
-
-;; ;; tree representation of changes to to walk the undo/redo graph. "C-x u" to open tree for current file.
-;; (require 'undo-tree)
-;; (global-undo-tree-mode)
 
 (require 'ido)
 (ido-mode t)
@@ -355,6 +347,7 @@ that was stored with ska-point-to-register."
 (require 'whitespace)
 (setq-default whitespace-line-column fill-column) ;; limit line length
 (setq-default whitespace-style '(face lines-tail tailing))
+
 (setq-default show-trailing-whitespace t)
 (add-hook 'prog-mode-hook 'whitespace-mode)
 
@@ -377,6 +370,7 @@ that was stored with ska-point-to-register."
 
 (require 'company)
 (add-hook 'after-init-hook 'global-company-mode)
+
 (global-set-key (kbd "M-/") 'company-complete)
 
 ;; flyspell
