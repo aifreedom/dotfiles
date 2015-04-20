@@ -184,7 +184,7 @@ that was stored with ska-point-to-register."
 
 ;; go to last edit location (super useful)
 (require 'goto-last-change)
-(global-set-key (kbd "C-c C-q") 'goto-last-change)
+(global-set-key (kbd "C-\\") 'goto-last-change)
 
 (require 'ido)
 (ido-mode t)
@@ -377,6 +377,10 @@ that was stored with ska-point-to-register."
 (require 'flyspell)
 (setq flyspell-issue-message-flg nil)
 (add-hook 'prog-mode-hook 'flyspell-prog-mode)
+(defun my-flyspell-mode-hook ()
+  (define-key flyspell-mode-map (kbd "C-.") 'ska-point-to-register)
+  (define-key flyspell-mode-map (kbd "C-,") 'ska-jump-to-register))
+(add-hook 'flyspell-mode-hook 'my-flyspell-mode-hook)
 
 ;; Projectile
 (require 'grizzl)
@@ -407,6 +411,14 @@ that was stored with ska-point-to-register."
 (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
+(defun my-web-mode-hook ()
+  ;; Press Command-p for fuzzy find in project
+  (define-key web-mode-map (kbd "C-c C-p") 'projectile-find-file)
+  ;; Press Command-b for fuzzy switch buffer
+  (define-key web-mode-map (kbd "C-c C-b") 'projectile-switch-to-buffer)
+  ;; Press Command-a for Ag search
+  (define-key web-mode-map (kbd "C-c C-a") 'projectile-ag))
+(add-hook 'web-mode-hook 'my-web-mode-hook)
 
 ;; highlight-indentation
 (require 'highlight-indentation)
