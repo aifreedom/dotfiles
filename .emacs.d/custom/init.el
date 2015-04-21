@@ -411,6 +411,9 @@ that was stored with ska-point-to-register."
 (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
+(setq web-mode-engines-alist
+      '(("erb"    . "\\.html.erb\\'"))
+)
 (defun my-web-mode-hook ()
   ;; Press Command-p for fuzzy find in project
   (define-key web-mode-map (kbd "C-c C-p") 'projectile-find-file)
