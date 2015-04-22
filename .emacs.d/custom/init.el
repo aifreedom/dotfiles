@@ -415,6 +415,8 @@ that was stored with ska-point-to-register."
       '(("erb"    . "\\.html.erb\\'"))
 )
 (defun my-web-mode-hook ()
+  (setq web-mode-markup-indent-offset 2)
+
   ;; Press Command-p for fuzzy find in project
   (define-key web-mode-map (kbd "C-c C-p") 'projectile-find-file)
   ;; Press Command-b for fuzzy switch buffer
