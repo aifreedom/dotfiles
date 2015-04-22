@@ -251,6 +251,7 @@ that was stored with ska-point-to-register."
 
 (require 'magit)
 (setq magit-last-seen-setup-instructions "1.4.0")
+(global-set-key (kbd "C-M-g") 'magit-status)
 
 (setq-default fill-column 80)
 
