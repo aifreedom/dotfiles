@@ -373,7 +373,7 @@ that was stored with ska-point-to-register."
 
 (require 'company)
 (add-hook 'after-init-hook 'global-company-mode)
-
+(setq company-dabbrev-downcase nil)
 (global-set-key (kbd "M-/") 'company-complete)
 
 ;; flyspell
@@ -414,16 +414,9 @@ that was stored with ska-point-to-register."
 (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.jsx$" . web-mode))
 
 (setq web-mode-engines-alist
       '(("erb"    . "\\.html.erb\\'")))
-
-(defadvice web-mode-highlight-part (around tweak-jsx activate)
-  (if (equal web-mode-content-type "jsx")
-      (let ((web-mode-enable-part-face nil))
-        ad-do-it)
-    ad-do-it))
 
 (defun my-web-mode-hook ()
   ;; Press Command-p for fuzzy find in project
@@ -451,6 +444,10 @@ that was stored with ska-point-to-register."
   (define-key web-mode-map (kbd "C-c b s") 'web-mode-block-select))
 
 (add-hook 'web-mode-hook 'my-web-mode-hook)
+
+(add-to-list 'auto-mode-alist '("\\.jsx\\'" . jsx-mode))
+(autoload 'jsx-mode "jsx-mode" "JSX mode" t)
+(setq jsx-indent-level 2)
 
 ;; highlight-indentation
 (require 'highlight-indentation)
