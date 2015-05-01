@@ -50,6 +50,8 @@ alias m=more
 alias v=vagrant
 alias ret='tmux attach'
 
+alias fuck='$(thefuck $(fc -ln -1))'
+
 ## git
 function new() {
   git checkout origin/master -b songx/$1
@@ -93,7 +95,9 @@ alias sqlgs="sqlgr --literal"
 
 aman () { man -t "$@" | open -f -a Preview; }
 
-eval "$(rbenv init -)"
+if rbenv_loc="$(type -p "rbenv")" && [ -z "$rbenv_loc" ]; then
+  eval "$(rbenv init -)"
+fi
 
 # Fix for path sync in Emacs eshell using zsh
 if [ -n "$INSIDE_EMACS" ]; then

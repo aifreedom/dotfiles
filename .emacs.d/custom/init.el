@@ -1,4 +1,4 @@
-(require 'cask "/usr/local/Cellar/cask/0.7.2/cask.el")
+(require 'cask "~/.cask/cask.el")
 (cask-initialize)
 (require 'pallet)
 (pallet-mode t)
@@ -67,10 +67,10 @@
                        (list
                         (powerline-raw global-mode-string face2 'r)
                         (funcall separator-right face2 face1)
-                        (unless window-system
-                          (powerline-raw
-                           (char-to-string 57505)
-                           face1 'l))
+                        ;; (unless window-system
+                        ;;   (powerline-raw
+                        ;;    (char-to-string 57505)
+                        ;;    face1 'l))
                         (powerline-raw "%4l" face1 'l)
                         (powerline-raw ":" face1 'l)
                         (powerline-raw "%3c" face1 'r)
