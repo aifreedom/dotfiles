@@ -480,8 +480,6 @@ that was stored with ska-point-to-register."
 
 (setq-default indent-tabs-mode nil)
 
-(setq scss-compile-at-save nil)
-
 (require 'multi-term)
 (defun multi-term-dedicated-toggle-and-select ()
   "Toggle the `multi-term` dedicated. If opened, select it."
