@@ -8,3 +8,5 @@
 	editor = vi
 [push]
 	default = current
+[github]
+	user = song-xie

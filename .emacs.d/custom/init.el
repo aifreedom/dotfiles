@@ -353,6 +353,7 @@ that was stored with ska-point-to-register."
 
 (setq-default show-trailing-whitespace t)
 (add-hook 'prog-mode-hook 'whitespace-mode)
+(add-hook 'jsx-mode-hook 'whitespace-mode)
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (setq require-final-newline t)
@@ -509,6 +510,22 @@ that was stored with ska-point-to-register."
 (global-set-key (kbd "C-`") 'get-term)
 
 (setq toml-indent-level 2)
+
+(defun trim-string (string)
+  "Remove white spaces in beginning and ending of STRING.
+White space here is any of: space, tab, emacs newline (line feed, ASCII 10)."
+  (replace-regexp-in-string "\\`[ \t\n]*" "" (replace-regexp-in-string "[ \t\n]*\\'" "" string)))
+
+;; Open github pages from files
+(defun browse-on-github ()
+  "Show the current file on github"
+  (interactive)
+  (let* ((full-path (mapconcat 'identity `("~/bin/gitopener" ,(buffer-file-name)) " "))
+         (result-url (trim-string (shell-command-to-string full-path))))
+    (message result-url)
+    (browse-url result-url)
+    ))
+(global-set-key (kbd "C-c C-o") 'browse-on-github)
 
 ;; Load other files
 (defun load-local (filename)

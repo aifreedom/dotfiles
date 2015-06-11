@@ -95,7 +95,7 @@ alias sqlgs="sqlgr --literal"
 
 aman () { man -t "$@" | open -f -a Preview; }
 
-if rbenv_loc="$(type -p "rbenv")" && [ -z "$rbenv_loc" ]; then
+if rbenv_loc="$(command -v "rbenv")" && [ -z "$rbenv_loc" ]; then
   eval "$(rbenv init -)"
 fi
 

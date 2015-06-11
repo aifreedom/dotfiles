@@ -19,6 +19,7 @@
 (depends-on "git-rebase-mode")
 (depends-on "goto-last-change")
 (depends-on "grizzl")
+(depends-on "helm-open-github")
 (depends-on "highlight-indentation")
 (depends-on "inf-ruby")
 (depends-on "jsx-mode")

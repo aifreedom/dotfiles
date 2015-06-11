@@ -5,6 +5,7 @@
     "tmux",
     "ruby",
     "emacs",
+    "bin",
   ]
 
 [tasks.git]
@@ -34,4 +35,9 @@
     [".emacs"],
     [".emacs.d/Cask"],
     [".emacs.d/custom/"],
+  ]
+
+[tasks.bin]
+  links = [
+    ["bin/gitopener"],
   ]
