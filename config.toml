@@ -17,6 +17,7 @@
 [tasks.zsh]
   links = [
     [".zshrc"],
+    [".zshenv"],
     [".oh-my-zsh-custom"],
   ]
 

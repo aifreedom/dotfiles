@@ -33,8 +33,6 @@ source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
 export EMAIL=me@xiesong.me
-export GOPATH=$HOME/go
-export PATH=~/bin:~/local/bin:/opt/local/bin:/usr/local/bin:/usr/local/sbin:/bin:/usr/bin:$GOPATH/bin:/opt/airbnb/bin:$PATH
 export EDITOR=vi
 export ALTERNATE_EDITOR=""
 export LESSOPEN="| /usr/local/bin/src-hilite-lesspipe.sh %s"
@@ -135,3 +133,6 @@ function gem-build-push() {
 }
 
 # export SSH_AUTH_SOCK=$TMPDIR/ssh-agent-$USER.sock
+
+export NVM_DIR="$HOME/.nvm"
+. "/usr/local/opt/nvm/nvm.sh"

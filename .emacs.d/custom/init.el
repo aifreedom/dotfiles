@@ -1,18 +1,26 @@
+(require 'cask "~/.cask/cask.el")
+(cask-initialize)
+
+(when (memq window-system '(mac ns))
+  (exec-path-from-shell-initialize))
+
 (let ((trustfile
        (replace-regexp-in-string
         "\\\\" "/"
         (replace-regexp-in-string
          "\n" ""
-         (shell-command-to-string "source $HOME/.zshrc && python -m certifi")))))
+         (shell-command-to-string "python -m certifi")))))
   (setq tls-program
         (list
          (format "gnutls-cli%s --x509cafile %s -p %%p %%h"
                  (if (eq window-system 'w32) ".exe" "") trustfile))))
 
-(require 'cask "~/.cask/cask.el")
-(cask-initialize)
 (require 'pallet)
 (pallet-mode t)
+
+;; Helm
+(require 'helm)
+(require 'helm-ls-git)
 
 (setq standard-indent 2)
 
@@ -410,12 +418,12 @@ that was stored with ska-point-to-register."
 (global-set-key (kbd "C-c C-a") 'projectile-ag)
 
 ;; find-file-in-project
-(autoload 'find-file-in-project "find-file-in-project" nil t)
-(autoload 'find-file-in-project-by-selected "find-file-in-project" nil t)
-(autoload 'find-directory-in-project-by-selected "find-file-in-project" nil t)
-(autoload 'ffip-show-diff "find-file-in-project" nil t)
-(autoload 'ffip-save-ivy-last "find-file-in-project" nil t)
-(autoload 'ffip-ivy-resume "find-file-in-project" nil t)
+;; (autoload 'find-file-in-project "find-file-in-project" nil t)
+;; (autoload 'find-file-in-project-by-selected "find-file-in-project" nil t)
+;; (autoload 'find-directory-in-project-by-selected "find-file-in-project" nil t)
+;; (autoload 'ffip-show-diff "find-file-in-project" nil t)
+;; (autoload 'ffip-save-ivy-last "find-file-in-project" nil t)
+;; (autoload 'ffip-ivy-resume "find-file-in-project" nil t)
 
 ;; dash-at-point
 (autoload 'dash-at-point "dash-at-point"
@@ -435,7 +443,6 @@ that was stored with ska-point-to-register."
 (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.jsx\\'" . web-mode))
-
 (setq web-mode-engines-alist
       '(("erb"    . "\\.html.erb\\'")))
 
@@ -465,6 +472,24 @@ that was stored with ska-point-to-register."
   (define-key web-mode-map (kbd "C-c b s") 'web-mode-block-select))
 
 (add-hook 'web-mode-hook 'my-web-mode-hook)
+
+;; flycheck
+(require 'flycheck)
+;; turn on flychecking globally
+(add-hook 'after-init-hook #'global-flycheck-mode)
+;; disable jshint since we prefer eslint checking
+(setq-default flycheck-disabled-checkers
+  (append flycheck-disabled-checkers
+    '(javascript-jshint)))
+;; use eslint with web-mode for jsx files
+(flycheck-add-mode 'javascript-eslint 'web-mode)
+;; customize flycheck temp file prefix
+(setq-default flycheck-temp-prefix ".flycheck")
+(setq flycheck-javascript-eslint-executable "eslint-project-relative")
+;; disable json-jsonlist checking for json files
+(setq-default flycheck-disabled-checkers
+  (append flycheck-disabled-checkers
+    '(json-jsonlist)))
 
 ;; (add-to-list 'auto-mode-alist '("\\.jsx\\'" . jsx-mode))
 ;; (autoload 'jsx-mode "jsx-mode" "JSX mode" t)
