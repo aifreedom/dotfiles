@@ -27,14 +27,14 @@ ZSH_THEME="aifreedom"
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-plugins=(brew git python encode64 dircycle rails ruby vagrant rbenv gem)
+plugins=(brew git python encode64 dircycle rails ruby vagrant rbenv gem npm)
 
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
 export EMAIL=me@xiesong.me
 export GOPATH=$HOME/go
-export PATH=~/bin:~/local/bin:/opt/local/bin:/usr/local/bin:/usr/local/sbin:/bin:/usr/bin:$GOPATH/bin:$PATH
+export PATH=~/bin:~/local/bin:/opt/local/bin:/usr/local/bin:/usr/local/sbin:/bin:/usr/bin:$GOPATH/bin:/opt/airbnb/bin:$PATH
 export EDITOR=vi
 export ALTERNATE_EDITOR=""
 export LESSOPEN="| /usr/local/bin/src-hilite-lesspipe.sh %s"
@@ -65,6 +65,7 @@ alias br='git branch'
 alias cont='git rebase --continue'
 alias del='git branch -D'
 alias cleanup='sw master && git branch --merged master | grep -v "\* master" | xargs -n 1 git branch -d'
+# alias gh='open https://git.musta.ch/airbnb/chef/compare/songx/yunpian-credential?expand=1'
 
 ## Phabricator
 alias ad='arc diff'
@@ -95,9 +96,12 @@ alias sqlgs="sqlgr --literal"
 
 aman () { man -t "$@" | open -f -a Preview; }
 
-if rbenv_loc="$(command -v "rbenv")" && [ -z "$rbenv_loc" ]; then
+# gold key
+alias rekey="killall ssh-agent && ssh-add -s /usr/local/lib/opensc-pkcs11.so -t 36000000"
+
+# if rbenv_loc="$(command -v "rbenv")" && [ -z "$rbenv_loc" ]; then
   eval "$(rbenv init -)"
-fi
+# fi
 
 # Fix for path sync in Emacs eshell using zsh
 if [ -n "$INSIDE_EMACS" ]; then
@@ -109,3 +113,25 @@ fi
 if [ -f ~/.zshrc_local ]; then
   source ~/.zshrc_local
 fi
+
+function gem-build-push() {
+  # Replace with LDAP name if needed
+  username=`whoami`
+  # resolve the DNS entry only once,
+  # otherwise the commands might go to different hosts
+  h=$(dig +short geminabox-internal.aws.airbnb.com|head -n1|sed s'/\.$//')
+
+  gemspec_name=`find . -name '*.gemspec' -maxdepth 1 2>/dev/null`
+  if [[ -e ${gemspec_name} ]]
+  then
+    # Find gemspec and build it
+    gem_name=`gem build ${gemspec_name} | ruby -e "puts STDIN.read.split.last"`
+    # Upload to gem server and add it
+    scp ${gem_name} ${username}@${h}:~ && \
+      ssh ${username}@${h} "add_gem.rb ${gem_name}"
+  else
+    echo "Cannot find a gemspec file to run"
+  fi
+}
+
+# export SSH_AUTH_SOCK=$TMPDIR/ssh-agent-$USER.sock

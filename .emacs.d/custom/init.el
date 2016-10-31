@@ -1,3 +1,14 @@
+(let ((trustfile
+       (replace-regexp-in-string
+        "\\\\" "/"
+        (replace-regexp-in-string
+         "\n" ""
+         (shell-command-to-string "source $HOME/.zshrc && python -m certifi")))))
+  (setq tls-program
+        (list
+         (format "gnutls-cli%s --x509cafile %s -p %%p %%h"
+                 (if (eq window-system 'w32) ".exe" "") trustfile))))
+
 (require 'cask "~/.cask/cask.el")
 (cask-initialize)
 (require 'pallet)
@@ -353,7 +364,7 @@ that was stored with ska-point-to-register."
 
 (setq-default show-trailing-whitespace t)
 (add-hook 'prog-mode-hook 'whitespace-mode)
-(add-hook 'jsx-mode-hook 'whitespace-mode)
+;; (add-hook 'jsx-mode-hook 'whitespace-mode)
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (setq require-final-newline t)
@@ -398,6 +409,14 @@ that was stored with ska-point-to-register."
 ;; Press Command-a for Ag search
 (global-set-key (kbd "C-c C-a") 'projectile-ag)
 
+;; find-file-in-project
+(autoload 'find-file-in-project "find-file-in-project" nil t)
+(autoload 'find-file-in-project-by-selected "find-file-in-project" nil t)
+(autoload 'find-directory-in-project-by-selected "find-file-in-project" nil t)
+(autoload 'ffip-show-diff "find-file-in-project" nil t)
+(autoload 'ffip-save-ivy-last "find-file-in-project" nil t)
+(autoload 'ffip-ivy-resume "find-file-in-project" nil t)
+
 ;; dash-at-point
 (autoload 'dash-at-point "dash-at-point"
   "Search the word at point with Dash." t nil)
@@ -415,6 +434,7 @@ that was stored with ska-point-to-register."
 (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.jsx\\'" . web-mode))
 
 (setq web-mode-engines-alist
       '(("erb"    . "\\.html.erb\\'")))
@@ -446,9 +466,9 @@ that was stored with ska-point-to-register."
 
 (add-hook 'web-mode-hook 'my-web-mode-hook)
 
-(add-to-list 'auto-mode-alist '("\\.jsx\\'" . jsx-mode))
-(autoload 'jsx-mode "jsx-mode" "JSX mode" t)
-(setq jsx-indent-level 2)
+;; (add-to-list 'auto-mode-alist '("\\.jsx\\'" . jsx-mode))
+;; (autoload 'jsx-mode "jsx-mode" "JSX mode" t)
+;; (setq jsx-indent-level 2)
 
 ;; highlight-indentation
 (require 'highlight-indentation)
@@ -526,6 +546,8 @@ White space here is any of: space, tab, emacs newline (line feed, ASCII 10)."
     (browse-url result-url)
     ))
 (global-set-key (kbd "C-c C-o") 'browse-on-github)
+
+(setq python-indent-offset 2)
 
 ;; Load other files
 (defun load-local (filename)

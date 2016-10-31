@@ -4,9 +4,19 @@
 [alias]
 	co = checkout
 	st = status
+	dfw = diff --ignore-space-change
+	sfw = show --ignore-space-change
+        lol = log --graph --decorate --pretty=oneline --abbrev-commit
+        lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
 [core]
 	editor = vi
+	excludesfile = /Users/song_xie/.gitignore_global
+	precomposeunicode = true
 [push]
 	default = current
 [github]
 	user = song-xie
+[hub]
+	host = git.musta.ch
+[rerere]
+	enabled = 1
