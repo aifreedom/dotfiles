@@ -21,6 +21,22 @@
 ;; Helm
 (require 'helm)
 (require 'helm-ls-git)
+(helm-mode 1)
+(global-set-key (kbd "M-x") 'helm-M-x)
+(global-set-key (kbd "C-x C-y") 'helm-M-x)
+(global-set-key (kbd "C-c C-y") 'helm-M-x)
+(global-set-key (kbd "C-x C-r") 'helm-recentf)
+(global-set-key (kbd "C-c C-r") 'helm-recentf)
+(global-set-key (kbd "C-x C-f") 'helm-find-files)
+(global-set-key (kbd "C-c g") 'helm-git-grep)
+(global-set-key (kbd "C-c C-g") 'helm-git-grep-at-point)
+(define-key isearch-mode-map (kbd "C-c g") 'helm-git-grep-from-isearch)
+(eval-after-load 'helm
+  '(define-key helm-map (kbd "C-c g") 'helm-git-grep-from-helm))
+
+
+(setq helm-ls-git-show-abs-or-relative 'relative)
+(setq helm-ls-git-fuzzy-match t)
 
 (setq standard-indent 2)
 
@@ -141,8 +157,8 @@
 	 (fname (completing-read (car prompt) (cdr prompt) nil nil)))
     ;; (find-file (cdr (assoc-ignore-representation fname tocpl)))))
     (find-file (cdr (assoc-string fname tocpl)))))
-(global-set-key (kbd "C-x C-r") 'recentf-open-files-compl)
-(global-set-key (kbd "C-c C-r") 'recentf-open-files-compl)
+;; (global-set-key (kbd "C-x C-r") 'recentf-open-files-compl)
+;; (global-set-key (kbd "C-c C-r") 'recentf-open-files-compl)
 
 (defun match-paren (arg)
   "Go to the matching paren if on a paren; otherwise insert %."
@@ -189,9 +205,9 @@ that was stored with ska-point-to-register."
 ;; 25keybindings.el
 ;; Costomized key bindings
 ;; Effective Emacs
-(global-set-key "\C-x\C-y" 'execute-extended-command)
-(global-set-key "\C-c\C-y" 'execute-extended-command)
-(global-set-key "\C-c\C-f" 'ido-find-file)
+;; (global-set-key "\C-x\C-y" 'execute-extended-command)
+;; (global-set-key "\C-c\C-y" 'execute-extended-command)
+;; (global-set-key "\C-c\C-f" 'ido-find-file)
 (global-set-key "\C-w" 'backward-kill-word)
 (global-set-key "\C-x\C-k" 'kill-region)
 
@@ -234,6 +250,7 @@ that was stored with ska-point-to-register."
 
 (require 'recentf)
 (recentf-mode 1)
+(setq recentf-max-menu-items 500)
 
 (add-to-list 'auto-mode-alist '("\\.js$" . js-mode))
 (setq js-indent-level 2)
