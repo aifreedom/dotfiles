@@ -31,6 +31,9 @@ plugins=(brew git python encode64 dircycle rails ruby vagrant rbenv gem npm)
 
 source $ZSH/oh-my-zsh.sh
 
+export GOPATH=$HOME/go
+export PATH=~/bin:~/local/bin:/opt/local/bin:/usr/local/bin:/usr/local/sbin:/bin:/usr/bin:$GOPATH/bin:/opt/airbnb/bin:$PATH
+
 # Customize to your needs...
 export EMAIL=me@xiesong.me
 export EDITOR=vi

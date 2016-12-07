@@ -18,18 +18,33 @@
 (require 'pallet)
 (pallet-mode t)
 
+(defvar my-keys-minor-mode-map (make-keymap) "my-keys-minor-mode keymap.")
+
+(define-key my-keys-minor-mode-map (kbd "C-.") 'ska-point-to-register)
+(define-key my-keys-minor-mode-map (kbd "C-,") 'ska-jump-to-register)
+
+(define-minor-mode my-keys-minor-mode
+  "A minor mode so that my key settings override annoying major modes."
+  t "my-keys" 'my-keys-minor-mode-map)
+
+(my-keys-minor-mode 1)
 ;; Helm
 (require 'helm)
 (require 'helm-ls-git)
 (helm-mode 1)
 (global-set-key (kbd "M-x") 'helm-M-x)
 (global-set-key (kbd "C-x C-y") 'helm-M-x)
-(global-set-key (kbd "C-c C-y") 'helm-M-x)
 (global-set-key (kbd "C-x C-r") 'helm-recentf)
-(global-set-key (kbd "C-c C-r") 'helm-recentf)
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
-(global-set-key (kbd "C-c g") 'helm-git-grep)
-(global-set-key (kbd "C-c C-g") 'helm-git-grep-at-point)
+(global-set-key (kbd "C-x b") 'helm-buffers-list)
+(define-key my-keys-minor-mode-map (kbd "C-c C-y") 'helm-M-x)
+(define-key my-keys-minor-mode-map (kbd "C-c C-r") 'helm-recentf)
+(define-key my-keys-minor-mode-map (kbd "C-c C-s") 'helm-occur)
+
+(define-key my-keys-minor-mode-map (kbd "C-c g") 'helm-git-grep)
+(define-key my-keys-minor-mode-map (kbd "C-c C-g") 'helm-git-grep-at-point)
+(define-key my-keys-minor-mode-map (kbd "C-c C-g") 'helm-git-grep-at-point)
+
 (define-key isearch-mode-map (kbd "C-c g") 'helm-git-grep-from-isearch)
 (eval-after-load 'helm
   '(define-key helm-map (kbd "C-c g") 'helm-git-grep-from-helm))
@@ -370,17 +385,6 @@ that was stored with ska-point-to-register."
 ;; (setq make-backup-files nil) ; stop creating those backup~ files
 ;; (setq auto-save-default nil) ; stop creating those #autosave# files
 
-(defvar my-keys-minor-mode-map (make-keymap) "my-keys-minor-mode keymap.")
-
-(define-key my-keys-minor-mode-map (kbd "C-.") 'ska-point-to-register)
-(define-key my-keys-minor-mode-map (kbd "C-,") 'ska-jump-to-register)
-
-(define-minor-mode my-keys-minor-mode
-  "A minor mode so that my key settings override annoying major modes."
-  t "my-keys" 'my-keys-minor-mode-map)
-
-(my-keys-minor-mode 1)
-
 (global-auto-revert-mode 1)
 
 (require 'whitespace)
@@ -411,6 +415,7 @@ that was stored with ska-point-to-register."
 (require 'company)
 (add-hook 'after-init-hook 'global-company-mode)
 (setq company-dabbrev-downcase nil)
+(setq company-dabbrev-ignore-case t)
 (global-set-key (kbd "M-/") 'company-complete)
 
 ;; flyspell
@@ -486,7 +491,13 @@ that was stored with ska-point-to-register."
   (define-key web-mode-map (kbd "C-c b k") 'web-mode-block-kill)
   (define-key web-mode-map (kbd "C-c b n") 'web-mode-block-next)
   (define-key web-mode-map (kbd "C-c b p") 'web-mode-block-previous)
-  (define-key web-mode-map (kbd "C-c b s") 'web-mode-block-select))
+  (define-key web-mode-map (kbd "C-c b s") 'web-mode-block-select)
+  (setq web-mode-attr-value-indent-offset 2)
+  (setq web-mode-attr-indent-offset 2)
+  (setq web-mode-markup-indent-offset 2)
+  (setq web-mode-css-indent-offset 2)
+  (setq web-mode-code-indent-offset 2)
+  (setq web-mode-indent-style 2))
 
 (add-hook 'web-mode-hook 'my-web-mode-hook)
 
@@ -587,7 +598,7 @@ White space here is any of: space, tab, emacs newline (line feed, ASCII 10)."
     (message result-url)
     (browse-url result-url)
     ))
-(global-set-key (kbd "C-c C-o") 'browse-on-github)
+(define-key my-keys-minor-mode-map (kbd "C-c C-o") 'browse-on-github)
 
 (setq python-indent-offset 2)
 
