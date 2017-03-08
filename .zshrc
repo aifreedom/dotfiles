@@ -32,7 +32,10 @@ plugins=(brew git python encode64 dircycle rails ruby vagrant rbenv gem npm)
 source $ZSH/oh-my-zsh.sh
 
 export GOPATH=$HOME/go
-export PATH=~/bin:~/local/bin:/opt/local/bin:/usr/local/bin:/usr/local/sbin:/bin:/usr/bin:$GOPATH/bin:/opt/airbnb/bin:$PATH
+export JAVA7_HOME=/Library/Java/JavaVirtualMachines/jdk1.7.0_79.jdk/Contents/Home
+export JAVA8_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home
+export JAVA_HOME=$JAVA8_HOME
+export PATH=~/bin:~/local/bin:/opt/local/bin:/usr/local/bin:/usr/local/sbin:/bin:/usr/bin:$GOPATH/bin:/opt/airbnb/bin:$JAVA_HOME/bin:$PATH
 
 # Customize to your needs...
 export EMAIL=me@xiesong.me
@@ -55,7 +58,7 @@ alias fuck='$(thefuck $(fc -ln -1))'
 
 ## git
 function new() {
-  git checkout origin/master -b songx/$1
+  git checkout origin/master -b songx--$1
 }
 
 alias com='git commit -a'
@@ -97,9 +100,6 @@ alias sqlgs="sqlgr --literal"
 
 aman () { man -t "$@" | open -f -a Preview; }
 
-# gold key
-alias rekey="killall ssh-agent && ssh-add -s /usr/local/lib/opensc-pkcs11.so -t 36000000"
-
 # if rbenv_loc="$(command -v "rbenv")" && [ -z "$rbenv_loc" ]; then
   eval "$(rbenv init -)"
 # fi
@@ -137,5 +137,5 @@ function gem-build-push() {
 
 # export SSH_AUTH_SOCK=$TMPDIR/ssh-agent-$USER.sock
 
-export NVM_DIR="$HOME/.nvm"
-. "/usr/local/opt/nvm/nvm.sh"
+# export NVM_DIR="$HOME/.nvm"
+# . "/usr/local/opt/nvm/nvm.sh"
