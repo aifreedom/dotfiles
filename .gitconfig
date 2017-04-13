@@ -19,6 +19,6 @@
 [hub]
 	host = git.musta.ch
 [rerere]
-	enabled = 1
+	enabled = true
 [credential]
 	helper = osxkeychain

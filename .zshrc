@@ -137,5 +137,7 @@ function gem-build-push() {
 
 # export SSH_AUTH_SOCK=$TMPDIR/ssh-agent-$USER.sock
 
-# export NVM_DIR="$HOME/.nvm"
-# . "/usr/local/opt/nvm/nvm.sh"
+function enable_nvmrc() {
+    export NVM_DIR="$HOME/.nvm"
+    . "/usr/local/opt/nvm/nvm.sh"
+}
