@@ -21,6 +21,15 @@
  '(package-selected-packages
    (quote
     (yasnippet yaml-mode web-mode toml-mode toml thrift smartparens robe rbenv rainbow-mode projectile powerline pig-mode php-mode pallet multiple-cursors multi-term moe-theme markdown-mode magit linum-off kill-ring-search jsx-mode js2-mode highlight-indentation helm-open-github helm-ls-git helm-git-grep helm-codesearch helm-cmd-t grizzl goto-last-change flycheck find-things-fast find-file-in-repository find-file-in-project exec-path-from-shell enh-ruby-mode dash-at-point crontab-mode company color-theme coffee-mode auto-complete ag)))
+ '(safe-local-variable-values
+   (quote
+    ((eval setq flycheck-command-wrapper-function
+           (lambda
+             (command)
+             (append
+              (quote
+               ("bundle" "exec"))
+              command))))))
  '(tls-checktrust t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
