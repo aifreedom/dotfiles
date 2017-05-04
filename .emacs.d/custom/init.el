@@ -595,10 +595,12 @@ White space here is any of: space, tab, emacs newline (line feed, ASCII 10)."
   "Show the current file on github"
   (interactive)
   (let* ((full-path (mapconcat 'identity `("~/bin/gitopener" ,(buffer-file-name)) " "))
-         (result-url (trim-string (shell-command-to-string full-path))))
+         (line-no (number-to-string (1+ (count-lines 1 (point)))))
+         (file-url (trim-string (shell-command-to-string full-path)))
+         (result-url (concat file-url "#L" line-no)))
     (message result-url)
-    (browse-url result-url)
-    ))
+    (browse-url result-url)))
+
 (define-key my-keys-minor-mode-map (kbd "C-c C-o") 'browse-on-github)
 
 (setq python-indent-offset 2)

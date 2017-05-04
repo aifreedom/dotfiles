@@ -19,6 +19,7 @@
 (depends-on "find-file-in-repository")
 (depends-on "find-things-fast")
 (depends-on "flycheck")
+(depends-on "fzf")
 (depends-on "gh")
 (depends-on "git-commit")
 (depends-on "goto-last-change")

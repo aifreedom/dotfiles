@@ -26,8 +26,8 @@ def get_github_address():
 
 
 def get_branch_name():
-    # return get_os_result('git rev-parse --abbrev-ref HEAD')
-    return 'master'
+    branch = get_os_result('git symbolic-ref HEAD 2> /dev/null || echo \'refs/heads/master\'')
+    return branch.replace('refs/heads/', '')
 
 
 def get_github_url(filename):
@@ -58,7 +58,7 @@ def main():
     if not os.path.isdir(filename):
         current_dir = os.path.dirname(filename)
     os.chdir(current_dir)
-    print get_github_url(filename)
+    print(get_github_url(filename))
 
 
 if __name__ == '__main__':
