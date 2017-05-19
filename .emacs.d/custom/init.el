@@ -36,7 +36,7 @@
 (global-set-key (kbd "C-x C-y") 'helm-M-x)
 (global-set-key (kbd "C-x C-r") 'helm-recentf)
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
-(global-set-key (kbd "C-x b") 'helm-buffers-list)
+(global-set-key (kbd "C-x b") 'helm-mini)
 (define-key my-keys-minor-mode-map (kbd "C-c C-y") 'helm-M-x)
 (define-key my-keys-minor-mode-map (kbd "C-c C-r") 'helm-recentf)
 (define-key my-keys-minor-mode-map (kbd "C-c C-s") 'helm-occur)

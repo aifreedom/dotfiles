@@ -33,6 +33,7 @@
 (depends-on "helm-open-github")
 (depends-on "highlight-indentation")
 (depends-on "inf-ruby")
+(depends-on "ivy")
 (depends-on "js2-mode")
 (depends-on "jsx-mode")
 (depends-on "kill-ring-search")
