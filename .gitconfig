@@ -12,6 +12,7 @@
 	editor = vi
 	excludesfile = /Users/song_xie/.gitignore_global
 	precomposeunicode = true
+	sparseCheckout = true
 [push]
 	default = current
 [github]

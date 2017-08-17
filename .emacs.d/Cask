@@ -25,6 +25,7 @@
 (depends-on "goto-last-change")
 (depends-on "grizzl")
 (depends-on "helm")
+(depends-on "helm-ag")
 (depends-on "helm-cmd-t")
 (depends-on "helm-codesearch")
 (depends-on "helm-core")

@@ -73,7 +73,7 @@ alias cleanup='sw master && git branch --merged master | grep -v "\* master" | x
 
 ## Phabricator
 alias ad='arc diff'
-alias af='arc feature'
+# alias af='arc feature'
 alias tbgs='git grep -n'
 
 ## ag searches
@@ -136,6 +136,10 @@ function gem-build-push() {
 }
 
 # export SSH_AUTH_SOCK=$TMPDIR/ssh-agent-$USER.sock
+if [[ -S "$SSH_AUTH_SOCK" && ! -h "$SSH_AUTH_SOCK" ]]; then
+    ln -sf "$SSH_AUTH_SOCK" ~/.ssh/ssh_auth_sock;
+fi
+export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock;
 
 function enable_nvmrc() {
     export NVM_DIR="$HOME/.nvm"
