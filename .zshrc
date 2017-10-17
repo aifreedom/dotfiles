@@ -27,7 +27,7 @@ ZSH_THEME="aifreedom"
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-plugins=(brew git python encode64 dircycle rails ruby vagrant rbenv gem npm)
+plugins=(brew git dircycle rails ruby rbenv gem npm)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -55,6 +55,8 @@ alias v=vagrant
 alias ret='tmux attach'
 
 alias fuck='$(thefuck $(fc -ln -1))'
+
+alias emacs='/usr/local/Cellar/emacs/25.1/bin/emacs -nw'
 
 ## git
 function new() {

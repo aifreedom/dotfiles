@@ -465,9 +465,13 @@ that was stored with ska-point-to-register."
 (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.jsx\\'" . web-mode))
 (setq web-mode-engines-alist
       '(("erb"    . "\\.html.erb\\'")))
+
+(add-to-list 'auto-mode-alist '("\\.jsx\\'" . rjsx-mode))
+(setq js-switch-indent-offset 2)
+(setq js2-mode-show-parse-errors nil)
+(setq js2-mode-show-strict-warnings nil)
 
 (defun my-web-mode-hook ()
   ;; Press Command-p for fuzzy find in project
@@ -625,4 +629,4 @@ White space here is any of: space, tab, emacs newline (line feed, ASCII 10)."
          user-emacs-directory)))
 
 (load-local "01ruby")
-(load-file "~/.emacs.d/flow-for-emacs/flow.el")
+; (load-file "~/.emacs.d/flow-for-emacs/flow.el")
