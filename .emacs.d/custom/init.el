@@ -38,7 +38,7 @@
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
 (global-set-key (kbd "C-x b") 'helm-mini)
 (define-key my-keys-minor-mode-map (kbd "C-c C-y") 'helm-M-x)
-(define-key my-keys-minor-mode-map (kbd "C-c C-r") 'helm-recentf)
+;; (define-key my-keys-minor-mode-map (kbd "C-c C-r") 'helm-recentf)
 (define-key my-keys-minor-mode-map (kbd "C-c C-s") 'helm-occur)
 
 (define-key my-keys-minor-mode-map (kbd "C-c g") 'helm-git-grep)
@@ -417,6 +417,7 @@ that was stored with ska-point-to-register."
 (add-hook 'after-init-hook 'global-company-mode)
 (setq company-dabbrev-downcase nil)
 (setq company-dabbrev-ignore-case t)
+(add-to-list 'company-backends 'company-tern)
 (global-set-key (kbd "M-/") 'company-complete)
 
 ;; flyspell
@@ -463,6 +464,20 @@ that was stored with ska-point-to-register."
 (setq js-switch-indent-offset 2)
 (setq js2-mode-show-parse-errors nil)
 (setq js2-mode-show-strict-warnings nil)
+
+(require 'js2-refactor)
+(require 'xref-js2)
+
+(add-hook 'js2-mode-hook #'js2-refactor-mode)
+(js2r-add-keybindings-with-prefix "C-c C-r")
+(define-key js2-mode-map (kbd "C-k") #'js2r-kill)
+
+;; js-mode (which js2 is based on) binds "M-." which conflicts with xref, so
+;; unbind it.
+(define-key js-mode-map (kbd "M-.") nil)
+
+(add-hook 'js2-mode-hook (lambda ()
+  (add-hook 'xref-backend-functions #'xref-js2-xref-backend nil t)))
 
 (defun my-web-mode-hook ()
   ;; Press Command-p for fuzzy find in project
