@@ -37,6 +37,12 @@ export JAVA8_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Ho
 export JAVA_HOME=$JAVA8_HOME
 export PATH=~/bin:~/local/bin:/opt/local/bin:/usr/local/bin:/usr/local/sbin:/bin:/usr/bin:$GOPATH/bin:/opt/airbnb/bin:$JAVA_HOME/bin:$PATH
 
+# Android paths`
+export ANDROID_HOME=${HOME}/Library/Android/sdk
+export PATH=${PATH}:${ANDROID_HOME}/tools
+export PATH=${PATH}:${ANDROID_HOME}/platform-tools
+export ANDROID_NDK="$ANDROID_HOME/ndk-bundle"
+
 # Customize to your needs...
 export EMAIL=me@xiesong.me
 export EDITOR=vi
