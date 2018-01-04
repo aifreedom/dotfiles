@@ -448,14 +448,6 @@ that was stored with ska-point-to-register."
 ;; (autoload 'ffip-save-ivy-last "find-file-in-project" nil t)
 ;; (autoload 'ffip-ivy-resume "find-file-in-project" nil t)
 
-;; dash-at-point
-(autoload 'dash-at-point "dash-at-point"
-  "Search the word at point with Dash." t nil)
-(add-hook 'enh-ruby-mode-hook
-	  (lambda () (setq dash-at-point-docset "rails")))
-(global-set-key "\C-cd" 'dash-at-point)
-(global-set-key "\C-ce" 'dash-at-point-with-docset)
-
 ;; web-mode
 (require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
@@ -468,7 +460,6 @@ that was stored with ska-point-to-register."
 (setq web-mode-engines-alist
       '(("erb"    . "\\.html.erb\\'")))
 
-(add-to-list 'auto-mode-alist '("\\.jsx\\'" . rjsx-mode))
 (setq js-switch-indent-offset 2)
 (setq js2-mode-show-parse-errors nil)
 (setq js2-mode-show-strict-warnings nil)
@@ -505,6 +496,14 @@ that was stored with ska-point-to-register."
   (setq web-mode-indent-style 2))
 
 (add-hook 'web-mode-hook 'my-web-mode-hook)
+
+;; RJSX mode
+(add-to-list 'auto-mode-alist '("\\.jsx\\'" . rjsx-mode))
+(defun my-rjsx-mode-hook ()
+  ;; Press Command-a for Ag search
+  (define-key rjsx-mode-map (kbd "C-c C-a") 'projectile-ag)
+)
+(add-hook 'rjsx-mode-hook 'my-rjsx-mode-hook)
 
 ;; flycheck
 (require 'flycheck)
