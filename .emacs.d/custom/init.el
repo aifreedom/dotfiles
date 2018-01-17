@@ -141,6 +141,7 @@
 (setq inhibit-startup-message t)
 (tool-bar-mode -1)
 (add-hook 'window-setup-hook 'toggle-frame-maximized t)
+(setq split-height-threshold 120)
 
 ;; Determine where we are
 (defvar on_darwin
@@ -268,7 +269,7 @@ that was stored with ska-point-to-register."
 (setq recentf-max-saved-items 500)
 (setq recentf-max-menu-items 500)
 
-(add-to-list 'auto-mode-alist '("\\.js$" . js-mode))
+(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 (setq js-indent-level 2)
 
 (setq css-indent-offset 2)
@@ -441,6 +442,9 @@ that was stored with ska-point-to-register."
 ;; Press Command-a for Ag search
 (global-set-key (kbd "C-c C-a") 'projectile-ag)
 
+(require 'fzf)
+(global-set-key (kbd "C-c C-f") 'fzf)
+
 ;; find-file-in-project
 ;; (autoload 'find-file-in-project "find-file-in-project" nil t)
 ;; (autoload 'find-file-in-project-by-selected "find-file-in-project" nil t)
@@ -514,11 +518,12 @@ that was stored with ska-point-to-register."
 
 ;; RJSX mode
 (add-to-list 'auto-mode-alist '("\\.jsx\\'" . rjsx-mode))
-(defun my-rjsx-mode-hook ()
+(defun my-js2-mode-hook ()
   ;; Press Command-a for Ag search
-  (define-key rjsx-mode-map (kbd "C-c C-a") 'projectile-ag)
+  (define-key js2-mode-map (kbd "C-c C-a") nil)
+  (define-key js2-mode-map (kbd "C-c C-f") nil)
 )
-(add-hook 'rjsx-mode-hook 'my-rjsx-mode-hook)
+(add-hook 'js2-mode-hook 'my-js2-mode-hook)
 
 ;; flycheck
 (require 'flycheck)
@@ -526,8 +531,9 @@ that was stored with ska-point-to-register."
 (add-hook 'after-init-hook #'global-flycheck-mode)
 ;; disable jshint since we prefer eslint checking
 (setq-default flycheck-disabled-checkers
-  (append flycheck-disabled-checkers
-    '(javascript-jshint)))
+              (append flycheck-disabled-checkers
+                      '(javascript-jshint)))
+
 ;; use eslint with web-mode for jsx files
 (flycheck-add-mode 'javascript-eslint 'web-mode)
 ;; customize flycheck temp file prefix

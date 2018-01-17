@@ -1,7 +1,8 @@
 ; Set rbenv first to ensure right ruby version is used
-(setq rbenv-installation-dir "/usr/local/opt/rbenv/")
-(require 'rbenv)
-(global-rbenv-mode)
+;; (setq rbenv-installation-dir "/usr/local/opt/rbenv/")
+;; (require 'rbenv)
+;; (rbenv-use-corresponding)
+;; (global-rbenv-mode)
 
 (autoload 'enh-ruby-mode "enh-ruby-mode" "Major mode for ruby files" t)
 (add-to-list 'auto-mode-alist '("\\.rb$" . enh-ruby-mode))
@@ -53,12 +54,12 @@ of FILE in the current directory, suitable for creation"
 	  (lambda ()
 	    (local-set-key (kbd "C-c l") 'rspec-compile-on-line)
 	    (local-set-key (kbd "C-c k") 'rspec-compile-file)
-	    ))
+	    (local-set-key (kbd "C-c C-f") nil)))
 
 (defadvice inf-ruby-console-auto (before activate-rvm-for-robe activate)
   (rbenv-use-corresponding))
 
 ;; Robe
-(add-hook 'enh-ruby-mode-hook 'robe-mode)
-(eval-after-load 'company
-  '(push 'company-robe company-backends))
+;; (add-hook 'enh-ruby-mode-hook 'robe-mode)
+;; (eval-after-load 'company
+;;   '(push 'company-robe company-backends))
