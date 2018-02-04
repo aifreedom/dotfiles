@@ -22,6 +22,7 @@
 (depends-on "git-commit")
 (depends-on "goto-last-change")
 (depends-on "grizzl")
+(depends-on "groovy-mode")
 (depends-on "helm")
 (depends-on "helm-ag")
 (depends-on "helm-cmd-t")
