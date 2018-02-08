@@ -153,3 +153,11 @@ function enable_nvmrc() {
     export NVM_DIR="$HOME/.nvm"
     . "/usr/local/opt/nvm/nvm.sh"
 }
+
+function pr() {
+  ref=$(git symbolic-ref HEAD 2> /dev/null) || return
+  branch=${ref#refs/heads/}
+  remote=$(git config --get remote.origin.url)
+  [[ $remote =~ 'git@(.*):(.*).git' ]] && domain=$match[1] && repo=$match[2]
+  open "https://$domain/$repo/compare/$branch?expand=1"
+}
