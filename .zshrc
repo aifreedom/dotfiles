@@ -109,7 +109,7 @@ alias sqlgs="sqlgr --literal"
 aman () { man -t "$@" | open -f -a Preview; }
 
 # if rbenv_loc="$(command -v "rbenv")" && [ -z "$rbenv_loc" ]; then
-  eval "$(rbenv init -)"
+#   eval "$(rbenv init -)"
 # fi
 
 # Fix for path sync in Emacs eshell using zsh
